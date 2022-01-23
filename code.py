@@ -44,8 +44,12 @@ def check_domains(domains: list, index = 0):
 
 
 def  main():
-    chars = list(sys.argv[1])
-    v = domains_list(chars)
+    argv = sys.argv
+    if len(argv) > 1:
+        chars = argv[1]
+    else:
+        chars = list(input('Enter words you want create domain name: '))
+    v = domains_list((chars))
     check_domains(list(v))
 
 if __name__ == '__main__':
