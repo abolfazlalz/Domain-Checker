@@ -2,6 +2,11 @@ import sys
 import subprocess
 import os
 
+FAIL_COLOR='\033[91m'
+BOLD_COLOR='\033[1m'
+END_COLOR='\033[0m'
+OK_COLOR='\033[96m'
+
 def get_list(index: int, accept: list):
     accept = list(accept)
     accept[0], accept[index] = accept[index], accept[0]
@@ -29,10 +34,11 @@ def domains_list(accept: list):
 
 def check_domain(domainName: str):
     l = str(subprocess.check_output(["whois", domainName]))
+    print(BOLD_COLOR + domainName + END_COLOR, end=' ')
     if "error" in l.lower():
-        print(domainName, "available") 
+        print(OK_COLOR + "available" + END_COLOR) 
         return domainName
-    print(domainName, 'unavailable')
+    print(FAIL_COLOR +  'unavailable', END_COLOR)
     return False
 
 def check_domains(domains: list, index = 0):
@@ -46,14 +52,14 @@ def check_domains(domains: list, index = 0):
 
 def  main():
     argv = sys.argv
-    stdin = list(map(lambda x: x.strip(), sys.stdin))
 
     if len(argv) > 1:
         chars = argv[1]
-    elif len(stdin) > 0:
-        chars = stdin[0]
     else:
-        chars = list(input('Enter words you want create domain name: '))
+        chars = list(input())
+    if len(chars) < 3:
+        print(FAIL_COLOR + "Enter 3 words or more" + END_COLOR)
+        return
     v = domains_list((chars))
     check_domains(list(v))
 
