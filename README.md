@@ -8,7 +8,13 @@ Now I have written this program in the form of functional programming.
 ## How to run program
 Put the letters you want to create a domain with after the program execution command
 
+### Simple run command
+```console
+$ python3 code.py abcd
 ```
-python3 code.py abcd
+### Pipe command
+this program support pipe commands in unix
+```console
+$ echo "abcd" | python3 code.py
+```
 
-```

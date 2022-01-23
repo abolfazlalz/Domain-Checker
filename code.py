@@ -1,5 +1,6 @@
 import sys
 import subprocess
+import os
 
 def get_list(index: int, accept: list):
     accept = list(accept)
@@ -45,8 +46,12 @@ def check_domains(domains: list, index = 0):
 
 def  main():
     argv = sys.argv
+    stdin = list(map(lambda x: x.strip(), sys.stdin))
+
     if len(argv) > 1:
         chars = argv[1]
+    elif len(stdin) > 0:
+        chars = stdin[0]
     else:
         chars = list(input('Enter words you want create domain name: '))
     v = domains_list((chars))
